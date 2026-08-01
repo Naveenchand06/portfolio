@@ -143,23 +143,7 @@ function StagePanel({
           {stage.summary}
         </p>
 
-        <ul className="mt-8 space-y-3.5">
-          {stage.detail.map((d, i) => (
-            <motion.li
-              key={i}
-              className="flex gap-4 text-[0.93rem] leading-relaxed text-muted"
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-10%' }}
-              transition={{ duration: 0.6, delay: i * 0.07 }}
-            >
-              <span className="mt-[0.6em] h-px w-4 shrink-0 bg-signal/60" />
-              <span className="text-pretty">{d}</span>
-            </motion.li>
-          ))}
-        </ul>
-
-        <div className="mt-8 flex flex-wrap gap-2">
+        <div className="mt-7 flex flex-wrap gap-2">
           {stage.tools.map((t) => (
             <span
               key={t}

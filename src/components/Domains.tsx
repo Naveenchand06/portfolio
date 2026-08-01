@@ -52,21 +52,11 @@ export default function Domains() {
               <h3 className="mt-7 text-2xl font-semibold tracking-tight md:text-[1.7rem]">
                 {d.title}
               </h3>
-              <p className="mt-2.5 text-pretty text-[0.93rem] leading-relaxed text-bone/70">
+              <p className="mt-3 text-pretty text-[0.93rem] leading-relaxed text-muted">
                 {d.blurb}
               </p>
 
-              <ul className="mt-7 space-y-2.5 border-t border-bone/8 pt-6">
-                {d.points.map((p) => (
-                  <li
-                    key={p}
-                    className="flex gap-3 text-[0.86rem] leading-relaxed text-muted"
-                  >
-                    <span className="mt-[0.68em] h-px w-2.5 shrink-0 bg-dim transition-colors duration-500 group-hover:bg-signal" />
-                    <span className="text-pretty">{p}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-7 h-px w-0 bg-signal transition-all duration-700 ease-[var(--ease-out-expo)] group-hover:w-full" />
             </motion.article>
           ))}
         </div>

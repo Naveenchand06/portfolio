@@ -165,7 +165,6 @@ export type PipelineStage = {
   title: string
   verb: string
   summary: string
-  detail: string[]
   tools: string[]
 }
 
@@ -176,13 +175,7 @@ export const pipeline: PipelineStage[] = [
     title: 'Code',
     verb: 'Shift left, properly',
     summary:
-      'Security that meets the developer in the editor and the pull request, not three weeks later in a PDF.',
-    detail: [
-      'Pre-commit hooks for secret detection, formatting and lint so the obvious never reaches a branch.',
-      'SAST wired into pull requests with findings posted as review comments on the changed lines, not a separate dashboard nobody opens.',
-      'Software composition analysis on every dependency change, with policy on licence class as well as CVE severity.',
-      'Branch protection, signed commits, CODEOWNERS and mandatory review as enforced repository configuration rather than written convention.',
-    ],
+      'Secret scanning, SAST and dependency policy run in the editor and on the pull request, with findings posted against the changed lines rather than filed in a dashboard nobody opens. Branch protection, signed commits and mandatory review are enforced configuration, not team convention.',
     tools: ['SonarQube', 'Semgrep', 'gitleaks', 'Trivy fs', 'pre-commit', 'CODEOWNERS'],
   },
   {
@@ -191,13 +184,7 @@ export const pipeline: PipelineStage[] = [
     title: 'Build',
     verb: 'Reproducible by default',
     summary:
-      'Deterministic builds, minimal images, and a pipeline that is itself treated as production infrastructure.',
-    detail: [
-      'Multi-stage container builds producing distroless or minimal-base runtime images, cutting attack surface and image size together.',
-      'Pinned base images by digest with automated bump PRs, so "latest" never silently changes what ships.',
-      'Build caching and matrix parallelism tuned to keep feedback under the threshold where developers context-switch away.',
-      'Least-privilege CI: OIDC federation to cloud providers instead of long-lived static keys living in secrets.',
-    ],
+      'Multi-stage builds producing minimal, distroless runtime images, with bases pinned by digest so "latest" never silently changes what ships. CI authenticates to the cloud through OIDC federation instead of long-lived static keys.',
     tools: ['Docker', 'BuildKit', 'GitHub Actions', 'Jenkins', 'OIDC federation', 'Distroless'],
   },
   {
@@ -206,13 +193,7 @@ export const pipeline: PipelineStage[] = [
     title: 'Scan & Sign',
     verb: 'Supply chain, end to end',
     summary:
-      'Every artifact scanned, inventoried, signed, and later verified at the point of admission.',
-    detail: [
-      'Container image scanning for OS and language-level vulnerabilities, gated on severity with documented, expiring exceptions.',
-      'SBOM generated per build and retained as an artifact, so the answer to "are we affected by this CVE" is a query rather than an investigation.',
-      'Keyless artifact signing and attestation, tying every image back to the commit and workflow that produced it.',
-      'IaC and Kubernetes manifest scanning before anything reaches a cluster, catching misconfiguration where it is cheapest to fix.',
-    ],
+      'Every image is scanned against severity gates, inventoried as an SBOM, and signed with an attestation tying it back to the commit and workflow that built it. Whether a new CVE reaches you becomes a query rather than an investigation.',
     tools: ['Trivy', 'Grype', 'Syft', 'Cosign', 'Sigstore', 'Checkov', 'tfsec', 'Kubescape'],
   },
   {
@@ -221,13 +202,7 @@ export const pipeline: PipelineStage[] = [
     title: 'Provision',
     verb: 'Nothing by hand',
     summary:
-      'Infrastructure as code across multiple clouds, including the unglamorous work of migrating what already exists.',
-    detail: [
-      'Terraform module libraries with versioned, reusable components and enforced remote state with locking.',
-      'Brownfield migration: importing live, console-provisioned estates into state without downtime, then closing the drift.',
-      'Plan output as a reviewable pull-request artifact; apply behind approval, with policy-as-code evaluated before merge.',
-      'Configuration management for the layer below the cluster: hardened base images, patching and CIS baselines.',
-    ],
+      'Versioned Terraform modules and locked remote state across more than one cloud, including the brownfield work of importing a live console-built estate without downtime. Plans are reviewed in pull requests and drift is caught on a schedule.',
     tools: ['Terraform', 'Terragrunt', 'Ansible', 'Packer', 'OPA / Conftest', 'CloudFormation'],
   },
   {
@@ -236,13 +211,7 @@ export const pipeline: PipelineStage[] = [
     title: 'Deploy',
     verb: 'Git is the only lever',
     summary:
-      'Declarative delivery where the cluster reconciles itself toward what the repository says, and drift is visible.',
-    detail: [
-      'GitOps controllers watching environment repositories, with promotion between environments as a reviewed change.',
-      'Progressive delivery: canary and blue/green rollouts driven by real metrics, with automated rollback on SLO breach.',
-      'Admission control rejecting unsigned images, privileged pods, missing resource limits and hostPath mounts before scheduling.',
-      'Secrets pulled from an external store at runtime, never committed, never baked into an image layer.',
-    ],
+      'GitOps controllers reconcile each environment toward what the repository says, with promotion as a reviewed change and canary rollouts that revert themselves on an SLO breach. Admission control rejects anything unsigned, privileged or unbounded before it ever schedules.',
     tools: ['Argo CD', 'Helm', 'Kustomize', 'Argo Rollouts', 'Kyverno', 'Gatekeeper', 'Vault', 'ESO'],
   },
   {
@@ -251,14 +220,7 @@ export const pipeline: PipelineStage[] = [
     title: 'Run & Route',
     verb: 'Zero trust, east and west',
     summary:
-      'Cluster operations, service mesh and the traffic layer, where most of the real incidents actually live.',
-    detail: [
-      'Kubernetes administration end to end: upgrades, node lifecycle, etcd health, capacity planning, autoscaling and cost control.',
-      'Service mesh for automatic mTLS between workloads, authorization policy, retries, timeouts and circuit breaking.',
-      'Migration from bespoke Ingress annotations to the Gateway API: role-separated, portable, and expressive enough to delete the workarounds.',
-      'Network policy as default-deny with explicit allow, plus egress control so a compromised pod cannot phone home.',
-      'Runtime threat detection watching syscalls for the behaviours that only show up after an image has already passed every scan.',
-    ],
+      'Cluster operations end to end, plus the traffic layer where most real incidents actually live. Service mesh carries mTLS and authorization policy between workloads, the Gateway API replaces annotation-driven Ingress, and network policy defaults to deny.',
     tools: ['Kubernetes', 'Istio', 'Linkerd', 'Gateway API', 'NGINX / Envoy', 'Cilium', 'Falco', 'CoreDNS'],
   },
   {
@@ -267,14 +229,7 @@ export const pipeline: PipelineStage[] = [
     title: 'Observe',
     verb: 'Alerts that matter',
     summary:
-      'Open standards, one correlated view, and a pager that only fires when a human genuinely needs to act.',
-    detail: [
-      'OpenTelemetry instrumentation as the single vendor-neutral collection layer: traces, metrics and logs from one pipeline.',
-      'Distributed tracing so a slow request is traced through every hop instead of guessed at from four disconnected dashboards.',
-      'Alerting written against SLOs and error budgets, with symptom-based pages and cause-based tickets kept firmly separate.',
-      'Deliberate alert pruning: every page that did not require action gets deleted or rewritten. Noise is a defect, and it is triaged like one.',
-      'Runbooks linked from the alert body, so the first thing the on-call engineer sees is what to do, not what fired.',
-    ],
+      'OpenTelemetry as the one vendor-neutral collection layer, with traces, metrics and logs correlated behind a single query surface. Alerting is written against SLOs, and any page that never drove an action gets deleted, because noise is a defect.',
     tools: ['OpenTelemetry', 'SigNoz', 'Prometheus', 'Grafana', 'Elasticsearch', 'Kibana', 'Alertmanager', 'Jaeger'],
   },
 ]
@@ -288,7 +243,6 @@ export type Domain = {
   icon: 'shield' | 'cloud' | 'kube' | 'mesh' | 'code' | 'radar'
   title: string
   blurb: string
-  points: string[]
 }
 
 export const domains: Domain[] = [
@@ -297,88 +251,42 @@ export const domains: Domain[] = [
     icon: 'kube',
     title: 'Kubernetes',
     blurb:
-      'Administration, workload development and hardening. The whole surface, not one slice of it.',
-    points: [
-      'Cluster lifecycle: version upgrades, node pool rotation, etcd backup and restore drills',
-      'Managed and self-managed control planes across more than one cloud',
-      'RBAC modelled to least privilege, with service account token hygiene',
-      'Pod Security Admission, seccomp and read-only root filesystems as the baseline',
-      'Custom controllers and operators where an off-the-shelf chart is the wrong answer',
-      'Autoscaling, resource governance, right-sizing and cost attribution per namespace',
-    ],
+      'Administration, workload development and hardening, across managed and self-managed clusters. Upgrades, RBAC, admission baselines and autoscaling, including the operators written when an off-the-shelf chart is the wrong answer.',
   },
   {
     id: 'security',
     icon: 'shield',
     title: 'Security Engineering',
     blurb:
-      'Application, container, infrastructure and supply-chain security treated as one continuous problem.',
-    points: [
-      'Container image hardening, minimal bases and vulnerability lifecycle management',
-      'SBOM generation, artifact signing and admission-time signature verification',
-      'Policy-as-code across CI, Terraform plans and the cluster admission path',
-      'Secrets management, rotation, and the removal of long-lived static credentials',
-      'Cloud posture: IAM least privilege, network segmentation, encryption in transit and at rest',
-      'Vulnerability triage that separates the exploitable from the merely reported',
-    ],
+      'Application, container, infrastructure and supply-chain security treated as one continuous problem. Enforced in the pipeline and at admission, rather than reported in a dashboard someone might read.',
   },
   {
     id: 'cloud',
     icon: 'cloud',
     title: 'Multi-Cloud Infrastructure',
     blurb:
-      'Designing, migrating and maintaining estates across providers without pretending they are interchangeable.',
-    points: [
-      'AWS, Azure and GCP: compute, networking, identity, storage and managed data services',
-      'Manual-to-code migration of live production estates with zero-downtime import strategies',
-      'Landing zones, account and subscription structure, guardrails and org-level policy',
-      'Load balancing, DNS, private connectivity, VPC and VNet peering, egress design',
-      'Disaster recovery planning with restore drills that are actually rehearsed',
-      'Cost engineering: right-sizing, commitment planning and waste elimination',
-    ],
+      'Designing, migrating and maintaining estates on AWS, Azure and GCP without pretending they are interchangeable. Including the unglamorous work of bringing a console-built estate under code.',
   },
   {
     id: 'mesh',
     icon: 'mesh',
     title: 'Networking & Service Mesh',
     blurb:
-      'The traffic layer: ingress, gateways, mesh, and the policies that decide who may talk to whom.',
-    points: [
-      'Gateway API adoption and migration away from annotation-driven Ingress',
-      'Istio and Linkerd: mTLS, authorization policy, traffic shifting and fault injection',
-      'Default-deny network policy with explicit allow-listing and egress control',
-      'North-south and east-west TLS termination, certificate automation and rotation',
-      'Multi-cluster and hybrid connectivity patterns',
-      'Debugging the layer everyone else avoids: DNS, MTU, conntrack, TLS handshakes',
-    ],
+      'The traffic layer: ingress, gateways, mesh, and the policies that decide who may talk to whom. Plus the debugging everyone else avoids, down to DNS, MTU and TLS handshakes.',
   },
   {
     id: 'automation',
     icon: 'code',
     title: 'Automation & Platform',
-    blurb: 'Internal tooling and pipelines built so the common path is the safe path.',
-    points: [
-      'CI/CD design from scratch with GitHub Actions, Jenkins and GitLab CI',
-      'GitOps delivery with environment promotion and automated drift correction',
-      'Reusable Terraform modules and workflow templates as an internal product',
-      'Go and Python tooling: operators, webhooks, CLIs, glue that removes toil',
-      'Self-service developer workflows that do not require a platform engineer in the loop',
-      'Documentation and enablement so the platform outlives whoever built it',
-    ],
+    blurb:
+      'Internal tooling and pipelines built so the common path is the safe path. Go and Python where glue is needed, and self-service workflows that do not put a platform engineer in the loop.',
   },
   {
     id: 'observability',
     icon: 'radar',
     title: 'Observability',
-    blurb: 'Open standards over vendor lock-in, correlation over dashboards, signal over volume.',
-    points: [
-      'OpenTelemetry as the single instrumentation and collection standard',
-      'SigNoz, Prometheus, Grafana and the Elastic stack in production',
-      'Distributed tracing with full request traceability across service boundaries',
-      'SLO and error-budget based alerting, tuned against real incident history',
-      'Log pipeline design: structured, sampled, and affordable at volume',
-      'Incident response: on-call structure, runbooks and blameless postmortems',
-    ],
+    blurb:
+      'Open standards over vendor lock-in, correlation over dashboards, signal over volume. Instrumentation that survives changing the backend, and alerting tuned against real incident history.',
   },
 ]
 
@@ -591,6 +499,10 @@ export const stack: { group: string; items: string[] }[] = [
   {
     group: 'Languages & Systems',
     items: ['Go', 'Python', 'Bash', 'JavaScript', 'Linux', 'systemd', 'Networking fundamentals', 'Git'],
+  },
+  {
+    group: 'Design & Practice',
+    items: ['System design', 'Distributed systems', 'Threat modelling', 'Landing zone design', 'SLO design', 'Incident response', 'Technical documentation'],
   },
 ]
 
