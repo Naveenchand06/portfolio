@@ -9,7 +9,7 @@ export default function About() {
       <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-7">
           <h2 className="display text-[clamp(2.1rem,5.6vw,4.6rem)]">
-            <MaskedWords lines={about.headline.map((h) => [h])} />
+            <MaskedWords lines={about.headline} />
           </h2>
         </div>
 

@@ -11,7 +11,6 @@ import About from './components/About'
 import Pipeline from './components/Pipeline'
 import Domains from './components/Domains'
 import Work from './components/Work'
-import Experience from './components/Experience'
 import Stack from './components/Stack'
 import Contact from './components/Contact'
 
@@ -37,7 +36,6 @@ export default function App() {
           <Pipeline />
           <Domains />
           <Work />
-          <Experience />
           <Stack />
         </main>
 

@@ -19,7 +19,7 @@ export default function Contact() {
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <h2 className="display text-[clamp(2.4rem,8vw,7rem)]">
-              <MaskedWords lines={contact.headline.map((h) => [h])} />
+              <MaskedWords lines={contact.headline} />
             </h2>
           </div>
           <Reveal className="lg:col-span-4 lg:pt-4" delay={0.2}>

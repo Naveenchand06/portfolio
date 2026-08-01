@@ -1,30 +1,14 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import type { ReactNode } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { caseStudies, sections } from '@/data/content'
 import type { CaseStudy } from '@/data/content'
 import CaseVisual from './ui/CaseVisual'
 import { MaskedWords, Reveal, SectionLabel } from './ui/Reveal'
 
 export default function Work() {
-  const [open, setOpen] = useState<ReadonlySet<string>>(new Set())
-
-  /**
-   * Cards open themselves as you scroll onto them and then stay open. Opening
-   * only ever adds height below the reader, so nothing jumps under the cursor —
-   * collapsing the previous card instead would yank the page upward.
-   */
-  const reveal = useCallback((id: string) => {
-    setOpen((prev) => (prev.has(id) ? prev : new Set(prev).add(id)))
-  }, [])
-
-  const toggle = useCallback((id: string) => {
-    setOpen((prev) => {
-      const next = new Set(prev)
-      if (!next.delete(id)) next.add(id)
-      return next
-    })
-  }, [])
+  // Every card starts collapsed; the reader opens what they want to read.
+  const [open, setOpen] = useState<string | null>(null)
 
   return (
     <section id="work" className="shell py-28 md:py-40">
@@ -48,9 +32,8 @@ export default function Work() {
           <CaseRow
             key={c.id}
             study={c}
-            open={open.has(c.id)}
-            onReveal={reveal}
-            onToggle={toggle}
+            open={open === c.id}
+            onToggle={() => setOpen(open === c.id ? null : c.id)}
           />
         ))}
       </div>
@@ -61,23 +44,12 @@ export default function Work() {
 function CaseRow({
   study,
   open,
-  onReveal,
   onToggle,
 }: {
   study: CaseStudy
   open: boolean
-  onReveal: (id: string) => void
-  onToggle: (id: string) => void
+  onToggle: () => void
 }) {
-  const headRef = useRef<HTMLButtonElement>(null)
-  // Narrow band across the upper-middle of the viewport: the header crossing it
-  // is what counts as "scrolled onto this one".
-  const inBand = useInView(headRef, { once: true, margin: '-22% 0px -55% 0px' })
-
-  useEffect(() => {
-    if (inBand) onReveal(study.id)
-  }, [inBand, onReveal, study.id])
-
   return (
     <motion.article
       className="border-b border-bone/10"
@@ -87,8 +59,7 @@ function CaseRow({
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
       <button
-        ref={headRef}
-        onClick={() => onToggle(study.id)}
+        onClick={onToggle}
         aria-expanded={open}
         className="group grid w-full grid-cols-1 items-start gap-4 py-8 text-left md:grid-cols-12 md:gap-8 md:py-10"
       >

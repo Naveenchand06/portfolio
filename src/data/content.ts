@@ -72,10 +72,12 @@ export const marquee = [
 
 export const about = {
   eyebrow: 'The short version',
+  // One entry per word. A whole phrase in a single entry wraps inside its
+  // reveal mask and gets clipped out of sight; the flex row handles wrapping.
   headline: [
-    { t: 'Most teams have a pipeline.' },
-    { t: 'Fewer have one they' },
-    { t: 'trust.', em: true },
+    [{ t: 'Most' }, { t: 'teams' }, { t: 'have' }, { t: 'a' }, { t: 'pipeline.' }],
+    [{ t: 'Fewer' }, { t: 'have' }, { t: 'one' }, { t: 'they' }],
+    [{ t: 'trust.', em: true }],
   ],
   body: [
     'I started as a software developer, which is the reason I build platforms the way I do. I have been the person on the other side of a slow pipeline and a useless alert, and I remember how much it cost.',
@@ -113,7 +115,7 @@ export type SectionHeader = {
 }
 
 export const sections: Record<
-  'pipeline' | 'domains' | 'work' | 'experience' | 'stack',
+  'pipeline' | 'domains' | 'work' | 'stack',
   SectionHeader
 > = {
   pipeline: {
@@ -146,18 +148,8 @@ export const sections: Record<
     intro:
       'Client names are withheld, the engineering is not. Each of these is a real migration or build: the situation I walked into, what I did about it, and what changed as a result.',
   },
-  experience: {
-    index: '05',
-    label: 'The path so far',
-    headline: [
-      [{ t: 'Developer' }, { t: 'first.' }],
-      [{ t: 'Which' }, { t: 'is' }, { t: 'the' }, { t: 'point.', em: true }],
-    ],
-    intro:
-      'I did not arrive at platform engineering from operations. I got here by writing the applications, then getting tired of how badly they were shipped and monitored.',
-  },
   stack: {
-    index: '06',
+    index: '05',
     label: 'The toolbox',
     headline: [[{ t: 'The' }, { t: 'full' }, { t: 'toolbox', em: true }]],
   },
@@ -564,89 +556,6 @@ export const caseStudies: CaseStudy[] = [
 ]
 
 /* ------------------------------------------------------------------ */
-/* Experience                                                           */
-/* ------------------------------------------------------------------ */
-
-export type Role = {
-  company: string
-  title: string
-  period: string
-  from: string
-  scale: string
-  summary: string
-  highlights: string[]
-  stack: string[]
-}
-
-export const experience: Role[] = [
-  {
-    company: 'Deloitte',
-    title: 'DevSecOps & Cloud Engineer, Associate Manager (Consultant)',
-    period: 'Aug 2024 to Present',
-    from: '2024',
-    scale: 'Enterprise',
-    summary:
-      'Designing and running secure delivery platforms for enterprise clients, where every control needs an audit trail and every change needs a reviewer.',
-    highlights: [
-      'Own end-to-end DevSecOps architecture: pipeline, cloud infrastructure, Kubernetes and the security controls that span all three.',
-      'Build and maintain multi-cloud infrastructure as code with versioned Terraform modules, remote state, policy checks on plan and scheduled drift detection.',
-      'Built container supply-chain security from scratch: scanning gates, SBOM retention, artifact signing and admission-time verification.',
-      'Hardened live Kubernetes clusters to default-deny networking, least-privilege RBAC and non-root workload baselines, using audit-first rollouts.',
-      'Migrated ingress routing to the Gateway API and introduced service mesh mTLS for east-west traffic.',
-      'Replaced fragmented monitoring with OpenTelemetry and SigNoz, then rewrote alerting against SLOs to end alert fatigue.',
-      'Mentor engineers and run enablement so platform practices outlast any single engagement.',
-    ],
-    stack: ['Kubernetes', 'Terraform', 'AWS', 'Azure', 'Istio', 'Gateway API', 'OpenTelemetry', 'SigNoz', 'Kyverno', 'Cosign', 'Argo CD'],
-  },
-  {
-    company: 'Cinepebble',
-    title: 'Application Lead',
-    period: 'Jul 2023 to Aug 2024',
-    from: '2023',
-    scale: 'Startup',
-    summary:
-      'Technical lead on the product and the platform beneath it. The entire path from feature branch to production was mine to design.',
-    highlights: [
-      'Stood up the delivery platform from nothing: CI/CD, infrastructure as code, container builds and environment promotion.',
-      'Led application architecture and the small team building against it, balancing delivery pace against technical debt.',
-      'Introduced observability and on-call practice early enough that incidents were diagnosable rather than guessed at.',
-      'Made the pragmatic managed-versus-self-hosted calls a small team lives or dies by.',
-    ],
-    stack: ['AWS', 'Docker', 'Terraform', 'GitHub Actions', 'Linux', 'Grafana', 'REST APIs'],
-  },
-  {
-    company: 'Axlerate',
-    title: 'Software Developer',
-    period: 'Sep 2022 to Jul 2023',
-    from: '2022',
-    scale: 'Startup',
-    summary:
-      'Building product features while gradually taking over the infrastructure and release process nobody else wanted to own.',
-    highlights: [
-      'Developed backend services and APIs, then automated the deployment path that shipped them.',
-      'Containerised applications and moved releases off manual steps onto repeatable pipelines.',
-      'Introduced code review discipline and static analysis into a team that had been shipping without either.',
-    ],
-    stack: ['Python', 'Go', 'Docker', 'Git', 'CI/CD', 'REST', 'Linux'],
-  },
-  {
-    company: 'Mavencart',
-    title: 'Software Developer & Engineering Intern',
-    period: 'Jul 2021 to Sep 2022',
-    from: '2021',
-    scale: 'Startup',
-    summary:
-      'Where it started. Joined as an intern, moved into a developer role on the same team, and learned the operational side by being on the hook for it.',
-    highlights: [
-      'Built and maintained full-stack product features running against real user traffic.',
-      'Owned work across the stack, including the deployment and server-side operations that came with it.',
-      'Picked up Linux, networking and deployment fundamentals hands-on rather than academically.',
-    ],
-    stack: ['JavaScript', 'Python', 'Linux', 'Git', 'REST', 'Bash'],
-  },
-]
-
-/* ------------------------------------------------------------------ */
 /* Stack                                                                */
 /* ------------------------------------------------------------------ */
 
@@ -686,7 +595,10 @@ export const stack: { group: string; items: string[] }[] = [
 ]
 
 export const contact = {
-  headline: [{ t: 'Let’s build something' }, { t: 'that stays up.', em: true }],
+  headline: [
+    [{ t: 'Let’s' }, { t: 'build' }, { t: 'something' }],
+    [{ t: 'that', em: true }, { t: 'stays', em: true }, { t: 'up.', em: true }],
+  ],
   body: 'I work across the whole delivery path: pipelines, cloud infrastructure, Kubernetes, and the security controls that hold all three together. If you are building a platform that has to be both fast and defensible, I am always glad to talk about it.',
   cta: 'Start a conversation',
 }
@@ -696,6 +608,5 @@ export const nav = [
   { label: 'Pipeline', href: '#pipeline' },
   { label: 'Expertise', href: '#expertise' },
   { label: 'Work', href: '#work' },
-  { label: 'Path', href: '#path' },
   { label: 'Contact', href: '#contact' },
 ]

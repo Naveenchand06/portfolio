@@ -69,8 +69,12 @@ export function MaskedWords({
               return (
                 <motion.span
                   key={wi}
+                  // Colour is set explicitly rather than inherited: the footer
+                  // headline was rendering near-black against the dark page.
                   className={
-                    word.em ? 'accent-serif inline-block text-signal' : 'inline-block'
+                    word.em
+                      ? 'accent-serif inline-block text-signal'
+                      : 'inline-block text-bone'
                   }
                   initial={{ y: '105%' }}
                   whileInView={{ y: '0%' }}
