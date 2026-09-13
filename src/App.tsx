@@ -8,10 +8,8 @@ import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Marquee from './components/Marquee'
 import Story from './components/Story'
-import Edge from './components/Edge'
 import Practice from './components/Practice'
 import Work from './components/Work'
-import Stack from './components/Stack'
 import Contact from './components/Contact'
 
 export default function App() {
@@ -33,10 +31,8 @@ export default function App() {
           <Hero ready={ready} />
           <Marquee />
           <Story />
-          <Edge />
           <Practice />
           <Work />
-          <Stack />
         </main>
 
         <Contact />

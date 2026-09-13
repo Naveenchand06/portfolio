@@ -15,15 +15,15 @@ export default function Hero({ ready }: { ready: boolean }) {
     offset: ['start start', 'end start'],
   })
 
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '38%'])
-  const textOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '22%'])
+  const textOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 0])
   const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 1.25])
 
   return (
     <section
       id="top"
       ref={ref}
-      className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pb-10 pt-32"
+      className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pb-12 pt-28"
     >
       {/* 3D backdrop */}
       <motion.div
@@ -73,11 +73,11 @@ export default function Hero({ ready }: { ready: boolean }) {
           <span className="label">{profile.focus}</span>
         </motion.div>
 
-        <h1 className="display text-[clamp(3.1rem,12.5vw,11.5rem)]">
+        <h1 className="display text-[clamp(2.5rem,min(9vw,13vh),8.25rem)]">
           {ready && <MaskedWords lines={hero.lines} delay={0.15} stagger={0.08} />}
         </h1>
 
-        <div className="mt-10 flex flex-col gap-10 border-t border-bone/10 pt-8 md:mt-14 md:flex-row md:items-end md:justify-between">
+        <div className="mt-14 flex flex-col gap-10 border-t border-bone/10 pt-10 md:mt-20 md:flex-row md:items-end md:justify-between">
           <motion.p
             className="max-w-xl text-pretty text-[0.98rem] leading-relaxed text-muted md:text-base"
             initial={{ opacity: 0, y: 20 }}
@@ -88,7 +88,7 @@ export default function Hero({ ready }: { ready: boolean }) {
           </motion.p>
 
           <motion.button
-            onClick={() => scrollToId('#approach')}
+            onClick={() => scrollToId('#story')}
             className="group flex shrink-0 items-center gap-4 text-left"
             initial={{ opacity: 0 }}
             animate={{ opacity: ready ? 1 : 0 }}

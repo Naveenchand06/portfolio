@@ -88,7 +88,7 @@ export type SectionHeader = {
 }
 
 export const sections: Record<
-  'story' | 'edge' | 'practice' | 'work' | 'stack',
+  'story' | 'practice' | 'work',
   SectionHeader
 > = {
   story: {
@@ -100,18 +100,8 @@ export const sections: Record<
       [{ t: 'curious', em: true }, { t: 'about', em: true }, { t: 'the', em: true }, { t: 'rest.', em: true }],
     ],
   },
-  edge: {
-    index: '02',
-    label: 'Why it matters',
-    headline: [
-      [{ t: 'Four' }, { t: 'things' }, { t: 'most' }],
-      [{ t: 'engineers' }, { t: 'pick' }, { t: 'one', em: true }, { t: 'of.', em: true }],
-    ],
-    intro:
-      'Platform people rarely read the application. Application people rarely own the cluster. Almost nobody in either group can tell you why a model behaves the way it does. I work across all of it, and that overlap is the whole point.',
-  },
   practice: {
-    index: '03',
+    index: '02',
     label: 'What I build',
     headline: [
       [{ t: 'Three' }, { t: 'practices,' }],
@@ -121,7 +111,7 @@ export const sections: Record<
       'Applications, models and AI features all fail for the same reasons once they leave a laptop. The artifact changes; the discipline does not.',
   },
   work: {
-    index: '04',
+    index: '03',
     label: 'Selected work',
     headline: [
       [{ t: 'Problems' }, { t: 'worth' }],
@@ -129,11 +119,6 @@ export const sections: Record<
     ],
     intro:
       'Client names are withheld, the engineering is not. Each of these is a real migration or build: the situation I walked into, what I did about it, and what changed as a result.',
-  },
-  stack: {
-    index: '05',
-    label: 'The toolbox',
-    headline: [[{ t: 'The' }, { t: 'full' }, { t: 'toolbox', em: true }]],
   },
 }
 
@@ -184,42 +169,6 @@ export const story = {
     },
   ],
 }
-
-/* ------------------------------------------------------------------ */
-/* The edge                                                             */
-/* ------------------------------------------------------------------ */
-
-export const edge: {
-  k: string
-  accent: Accent
-  title: string
-  body: string
-}[] = [
-  {
-    k: '01',
-    accent: 'verify',
-    title: 'I read the code, not just the cluster',
-    body: 'Most platform engineers stop at the infrastructure boundary. I came from the application side, so when an incident starts I can follow it from the pod into the stack trace. That is usually the difference between a long outage and a short one.',
-  },
-  {
-    k: '02',
-    accent: 'signal',
-    title: 'Security is the curiosity, not the checkbox',
-    body: 'I care about the mechanics: how provenance gets verified, how a token leaks, what default-deny actually breaks on the way in. Controls built from that understanding get adopted, because they fit how the system behaves rather than how an auditor describes it.',
-  },
-  {
-    k: '03',
-    accent: 'model',
-    title: 'I know how the models work',
-    body: 'Tokenisation, context windows, embeddings, retrieval, evaluation. Understanding the mechanics is what makes the judgement call possible: when an LLM is the right tool, when retrieval fixes it, and when you should not be using one at all.',
-  },
-  {
-    k: '04',
-    accent: 'model',
-    title: 'I get models past the notebook',
-    body: 'Around nine in ten models never reach production, and the blockers are delivery problems: packaging, serving, versioning, drift and ownership. That is the same discipline I apply to applications, pointed at a different artifact.',
-  },
-]
 
 /* ------------------------------------------------------------------ */
 /* Practices                                                            */
@@ -484,59 +433,6 @@ export const caseStudies: CaseStudy[] = [
   },
 ]
 
-/* ------------------------------------------------------------------ */
-/* Stack                                                                */
-/* ------------------------------------------------------------------ */
-
-export const stack: { group: string; items: string[] }[] = [
-  {
-    group: 'Cloud',
-    items: ['AWS', 'Microsoft Azure', 'Google Cloud', 'IAM & identity federation', 'VPC / VNet design', 'Load balancing', 'Landing zones', 'Cost engineering'],
-  },
-  {
-    group: 'Containers & Orchestration',
-    items: ['Kubernetes', 'Docker', 'Helm', 'Kustomize', 'Argo CD', 'Argo Rollouts', 'Operators & CRDs', 'Harbor', 'Distroless'],
-  },
-  {
-    group: 'Infrastructure as Code',
-    items: ['Terraform', 'Terragrunt', 'Ansible', 'Packer', 'CloudFormation', 'Module design', 'State & drift management', 'Brownfield import'],
-  },
-  {
-    group: 'Security',
-    items: ['Trivy', 'Grype', 'Syft (SBOM)', 'Cosign / Sigstore', 'Kyverno', 'OPA / Gatekeeper', 'Falco', 'SonarQube', 'Semgrep', 'gitleaks', 'Checkov', 'tfsec', 'HashiCorp Vault', 'CIS benchmarks'],
-  },
-  // verify: prune this group to the tools you have actually shipped with.
-  {
-    group: 'MLOps',
-    items: ['MLflow', 'Kubeflow Pipelines', 'KServe', 'BentoML', 'Model registry', 'Feature stores', 'Drift monitoring', 'Experiment tracking', 'GPU scheduling', 'ONNX', 'Triton Inference Server'],
-  },
-  // verify: same here.
-  {
-    group: 'AI & LLM',
-    items: ['RAG pipelines', 'Vector databases', 'Embeddings', 'LLM evaluation', 'Guardrails', 'Prompt versioning', 'Token & cost budgeting', 'Hugging Face', 'LangChain', 'Fine-tuning basics'],
-  },
-  {
-    group: 'Networking & Mesh',
-    items: ['Gateway API', 'Ingress NGINX', 'Istio', 'Linkerd', 'Envoy', 'Cilium', 'NetworkPolicy', 'cert-manager', 'ExternalDNS', 'CoreDNS', 'Firewalls'],
-  },
-  {
-    group: 'Observability',
-    items: ['OpenTelemetry', 'SigNoz', 'Prometheus', 'Grafana', 'Elasticsearch', 'Kibana', 'Jaeger', 'Alertmanager', 'SLO & error budgets'],
-  },
-  {
-    group: 'CI/CD',
-    items: ['GitHub Actions', 'Jenkins', 'GitLab CI', 'GitOps', 'Progressive delivery', 'OIDC federation', 'Reusable workflows'],
-  },
-  {
-    group: 'Languages & Systems',
-    items: ['Go', 'Python', 'Bash', 'JavaScript', 'Linux', 'systemd', 'Networking fundamentals', 'Git'],
-  },
-  {
-    group: 'Design & Practice',
-    items: ['System design', 'Distributed systems', 'Threat modelling', 'Landing zone design', 'SLO design', 'Incident response', 'Technical documentation'],
-  },
-]
-
 export const contact = {
   headline: [
     [{ t: 'Let’s' }, { t: 'build' }, { t: 'something' }],
@@ -548,7 +444,6 @@ export const contact = {
 
 export const nav = [
   { label: 'Story', href: '#story' },
-  { label: 'Edge', href: '#edge' },
   { label: 'Practice', href: '#practice' },
   { label: 'Work', href: '#work' },
   { label: 'Contact', href: '#contact' },

@@ -15,14 +15,14 @@ export default function Marquee() {
     damping: 50,
     stiffness: 400,
   })
-  const velocityFactor = useTransform(smoothVelocity, [0, 1200], [0, 4], {
+  const velocityFactor = useTransform(smoothVelocity, [0, 1600], [0, 2], {
     clamp: false,
   })
 
   const directionRef = useRef(1)
 
   useAnimationFrame((_, delta) => {
-    let moveBy = directionRef.current * -0.022 * delta
+    let moveBy = directionRef.current * -0.009 * delta
 
     const v = velocityFactor.get()
     if (v < 0) directionRef.current = -1
