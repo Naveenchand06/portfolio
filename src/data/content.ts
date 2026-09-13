@@ -4,22 +4,29 @@
  *
  * House style: no em dashes in visible copy. Use a colon, a comma or a full
  * stop instead. Compound hyphens (on-call, policy-as-code) are fine.
+ * Headline entries are one word each: a whole phrase in a single entry wraps
+ * inside its reveal mask and gets clipped out of sight.
  *
- * NOTE: entries tagged `// verify` carry claims worth double-checking
- * against your own records before you publish.
+ * NOTE: entries tagged `// verify` carry claims worth checking against your
+ * own records before you publish.
  */
+
+export type Accent = 'signal' | 'verify' | 'model'
 
 export const profile = {
   name: 'Naveenchand R B',
   short: 'Naveenchand',
   first: 'Naveen',
-  role: 'DevSecOps & Cloud Engineer',
+  initials: 'NRB',
+  role: 'DevSecOps, Cloud Platform & MLOps Engineer',
+  company: 'Deloitte',
   email: 'naveenchand0606@icloud.com',
-  /** Shown in the hero eyebrow: identity, not availability. */
-  kicker: 'DevSecOps & Cloud Engineer',
-  focus: 'Code to cloud · Kubernetes · Security · Observability',
+  kicker: 'DevSecOps · Cloud Platform · MLOps',
+  focus: 'Currently at Deloitte',
   tagline:
     'I build the path from commit to production, and the guardrails that keep it honest.',
+  /** Drop a file in /public and set this to e.g. '/portrait.jpg' to use a photo. */
+  portrait: null as string | null,
   socials: [
     { label: 'GitHub', href: 'https://github.com/Naveenchand06', handle: '@Naveenchand06' },
     {
@@ -32,15 +39,14 @@ export const profile = {
   ],
 }
 
-/** Hero headline, split so words can animate independently. */
 export const hero = {
   lines: [
-    [{ t: 'FROM' }, { t: 'CODE' }],
-    [{ t: 'TO' }, { t: 'CLOUD,' }],
-    [{ t: 'SECURED', em: true }],
+    [{ t: 'CODE,' }, { t: 'CLOUD' }],
+    [{ t: 'AND' }, { t: 'MODELS' }],
+    [{ t: 'IN', em: true }, { t: 'PRODUCTION', em: true }],
   ],
-  sub: 'DevSecOps and Cloud Engineer. I take systems from console-clicked and unmonitored to codified, hardened, observable and boring, at enterprise scale and at startup speed.',
-  scrollCue: 'Scroll to trace the pipeline',
+  sub: 'I started as a software developer and got curious about what happened to the code after the merge. That curiosity turned into a career in DevSecOps and cloud platforms, and now into getting machine learning models and LLM features to production, where most of them never arrive.',
+  scrollCue: 'Scroll to read the story',
 }
 
 export const marquee = [
@@ -49,6 +55,8 @@ export const marquee = [
   'AWS',
   'Azure',
   'GCP',
+  'MLflow',
+  'KServe',
   'Istio',
   'Gateway API',
   'OpenTelemetry',
@@ -56,55 +64,20 @@ export const marquee = [
   'Trivy',
   'Cosign',
   'Kyverno',
-  'ArgoCD',
+  'Argo CD',
+  'RAG',
+  'LLM evals',
   'GitHub Actions',
-  'Ansible',
   'Prometheus',
-  'Grafana',
   'Falco',
-  'SonarQube',
   'Vault',
-  'Helm',
   'Go',
   'Python',
   'Linux',
 ]
 
-export const about = {
-  eyebrow: 'The short version',
-  // One entry per word. A whole phrase in a single entry wraps inside its
-  // reveal mask and gets clipped out of sight; the flex row handles wrapping.
-  headline: [
-    [{ t: 'Most' }, { t: 'teams' }, { t: 'have' }, { t: 'a' }, { t: 'pipeline.' }],
-    [{ t: 'Fewer' }, { t: 'have' }, { t: 'one' }, { t: 'they' }],
-    [{ t: 'trust.', em: true }],
-  ],
-  body: [
-    'I started as a software developer, which is the reason I build platforms the way I do. I have been the person on the other side of a slow pipeline and a useless alert, and I remember how much it cost.',
-    'Today I work across the whole delivery path: the repository, the build, the scanners, the registry, the cluster, the mesh, the gateway, and everything on-call sees at 3am. Because I set all of it up, when something breaks I can look once and say exactly what went wrong and where. No guessing, no archaeology. I have done this on enterprise engagements where change control, audit evidence and compliance are non-negotiable, and in startups where the entire platform was me, a laptop and a deadline.',
-    'Both taught me the same lesson from opposite directions: security that slows delivery gets deleted, and delivery without security gets breached. The work is finding the version where neither happens.',
-  ],
-  pillars: [
-    {
-      k: '01',
-      title: 'Enterprise rigour',
-      body: 'Change advisory boards, audit trails, segregated duties, policy-as-code, evidence you can hand to a compliance officer without flinching.',
-    },
-    {
-      k: '02',
-      title: 'Startup velocity',
-      body: 'Greenfield platforms built solo: CI/CD, IaC, observability and secrets management standing up in weeks, not quarters.',
-    },
-    {
-      k: '03',
-      title: 'Developer empathy',
-      body: 'I ship the guardrails as paved roads, not as gates. If a control makes engineers route around it, the control has failed.',
-    },
-  ],
-}
-
 /* ------------------------------------------------------------------ */
-/* Section headers: eyebrow, display headline and intro paragraph       */
+/* Section headers                                                      */
 /* ------------------------------------------------------------------ */
 
 export type SectionHeader = {
@@ -115,35 +88,44 @@ export type SectionHeader = {
 }
 
 export const sections: Record<
-  'pipeline' | 'domains' | 'work' | 'stack',
+  'story' | 'edge' | 'practice' | 'work' | 'stack',
   SectionHeader
 > = {
-  pipeline: {
-    index: '02',
-    label: 'The delivery path',
+  story: {
+    index: '01',
+    label: 'Who I am',
     headline: [
-      [{ t: 'Seven' }, { t: 'stages.' }],
-      [{ t: 'One' }, { t: 'continuous' }, { t: 'path.', em: true }],
+      [{ t: 'I' }, { t: 'started' }, { t: 'by' }, { t: 'writing' }],
+      [{ t: 'the' }, { t: 'code.' }, { t: 'Then' }, { t: 'I' }, { t: 'got' }],
+      [{ t: 'curious', em: true }, { t: 'about', em: true }, { t: 'the', em: true }, { t: 'rest.', em: true }],
     ],
-    intro:
-      'Every stage below is something I have designed, built or migrated in production. They are listed in the order a change actually travels, because security that only exists at one of these points is theatre.',
   },
-  domains: {
-    index: '03',
-    label: 'What I actually do',
+  edge: {
+    index: '02',
+    label: 'Why it matters',
     headline: [
-      [{ t: 'Six' }, { t: 'domains,' }],
-      [{ t: 'one' }, { t: 'discipline.', em: true }],
+      [{ t: 'Four' }, { t: 'things' }, { t: 'most' }],
+      [{ t: 'engineers' }, { t: 'pick' }, { t: 'one', em: true }, { t: 'of.', em: true }],
     ],
     intro:
-      'These are the areas I work in every day. What sits under each heading is the real scope of it: the systems I have built, hardened and kept running.',
+      'Platform people rarely read the application. Application people rarely own the cluster. Almost nobody in either group can tell you why a model behaves the way it does. I work across all of it, and that overlap is the whole point.',
+  },
+  practice: {
+    index: '03',
+    label: 'What I build',
+    headline: [
+      [{ t: 'Three' }, { t: 'practices,' }],
+      [{ t: 'one' }, { t: 'delivery' }, { t: 'path.', em: true }],
+    ],
+    intro:
+      'Applications, models and AI features all fail for the same reasons once they leave a laptop. The artifact changes; the discipline does not.',
   },
   work: {
     index: '04',
     label: 'Selected work',
     headline: [
-      [{ t: 'Six' }, { t: 'problems' }],
-      [{ t: 'worth' }, { t: 'solving.', em: true }],
+      [{ t: 'Problems' }, { t: 'worth' }],
+      [{ t: 'solving.', em: true }],
     ],
     intro:
       'Client names are withheld, the engineering is not. Each of these is a real migration or build: the situation I walked into, what I did about it, and what changed as a result.',
@@ -156,137 +138,126 @@ export const sections: Record<
 }
 
 /* ------------------------------------------------------------------ */
-/* The pipeline: the interactive spine of the site                      */
+/* The story                                                            */
 /* ------------------------------------------------------------------ */
 
-export type PipelineStage = {
-  id: string
-  index: string
-  title: string
-  verb: string
-  summary: string
-  tools: string[]
+export const story = {
+  body: [
+    'I began as a software developer. I liked building the thing, but I kept getting pulled toward the part nobody wanted to own: what happened to the code after the merge. How it got built, where it ran, and why it fell over at 2am.',
+    'So I went and learned that side properly. Servers, then containers, then Kubernetes, then the cloud underneath all of it, and eventually the security that has to wrap the whole path. Today I am a DevSecOps and Cloud Platform Engineer at Deloitte, designing and running secure delivery platforms for enterprise clients.',
+    'I never stopped writing code, and that turns out to be the useful part. When something breaks I can read the application as well as the cluster, so I am never stuck at "the infrastructure looks fine". I find the root cause faster because I can follow it across that boundary instead of handing it over at it.',
+    'Security is where my curiosity keeps going. Not the compliance checkboxes, the actual mechanics: how an image earns trust, how a credential leaks, what default-deny genuinely costs you before it saves you.',
+    'And now the models. Everyone can train something; almost nobody can ship it. Roughly nine in ten models never reach production, and the reasons are rarely about the model. They are packaging, serving, versioning, monitoring and the fact that nobody owns it once the notebook closes. That is a delivery problem, which is precisely the problem I already solve.',
+    'The same holds for AI and LLMs. Using them well means understanding how they actually work rather than just calling an API. Knowing the mechanics is what tells you when a model is the right tool, when a retrieval layer fixes it, and when the honest answer is not to use one at all.',
+  ],
+  /** The arc, from first job to now. Doubles as the career timeline. */
+  journey: [
+    {
+      year: '2021',
+      title: 'Software Developer',
+      accent: 'signal' as Accent,
+      body: 'Built product features against real traffic. Picked up Linux, networking and deployment because shipping was part of the job.',
+    },
+    {
+      year: '2022',
+      title: 'Pulled toward delivery',
+      accent: 'signal' as Accent,
+      body: 'Took over the release process nobody wanted to own. Containers, then pipelines, then the cloud underneath them.',
+    },
+    {
+      year: '2023',
+      title: 'Application Lead',
+      accent: 'verify' as Accent,
+      body: 'Built a delivery platform from nothing, alone. CI/CD, infrastructure as code, observability and on-call practice.',
+    },
+    {
+      year: '2024',
+      title: 'DevSecOps & Cloud Platform Engineer',
+      accent: 'verify' as Accent,
+      body: 'Deloitte. Enterprise platforms where every control needs an audit trail and every change needs a reviewer.',
+    },
+    {
+      year: 'Now',
+      title: 'Models and AI in the same path',
+      accent: 'model' as Accent,
+      body: 'Extending that delivery discipline to ML models and LLM features, where almost nothing reaches production without it.',
+    },
+  ],
 }
 
-export const pipeline: PipelineStage[] = [
+/* ------------------------------------------------------------------ */
+/* The edge                                                             */
+/* ------------------------------------------------------------------ */
+
+export const edge: {
+  k: string
+  accent: Accent
+  title: string
+  body: string
+}[] = [
   {
-    id: 'code',
-    index: '01',
-    title: 'Code',
-    verb: 'Shift left, properly',
-    summary:
-      'Secret scanning, SAST and dependency policy run in the editor and on the pull request, with findings posted against the changed lines rather than filed in a dashboard nobody opens. Branch protection, signed commits and mandatory review are enforced configuration, not team convention.',
-    tools: ['SonarQube', 'Semgrep', 'gitleaks', 'Trivy fs', 'pre-commit', 'CODEOWNERS'],
+    k: '01',
+    accent: 'verify',
+    title: 'I read the code, not just the cluster',
+    body: 'Most platform engineers stop at the infrastructure boundary. I came from the application side, so when an incident starts I can follow it from the pod into the stack trace. That is usually the difference between a long outage and a short one.',
   },
   {
-    id: 'build',
-    index: '02',
-    title: 'Build',
-    verb: 'Reproducible by default',
-    summary:
-      'Multi-stage builds producing minimal, distroless runtime images, with bases pinned by digest so "latest" never silently changes what ships. CI authenticates to the cloud through OIDC federation instead of long-lived static keys.',
-    tools: ['Docker', 'BuildKit', 'GitHub Actions', 'Jenkins', 'OIDC federation', 'Distroless'],
+    k: '02',
+    accent: 'signal',
+    title: 'Security is the curiosity, not the checkbox',
+    body: 'I care about the mechanics: how provenance gets verified, how a token leaks, what default-deny actually breaks on the way in. Controls built from that understanding get adopted, because they fit how the system behaves rather than how an auditor describes it.',
   },
   {
-    id: 'scan',
-    index: '03',
-    title: 'Scan & Sign',
-    verb: 'Supply chain, end to end',
-    summary:
-      'Every image is scanned against severity gates, inventoried as an SBOM, and signed with an attestation tying it back to the commit and workflow that built it. Whether a new CVE reaches you becomes a query rather than an investigation.',
-    tools: ['Trivy', 'Grype', 'Syft', 'Cosign', 'Sigstore', 'Checkov', 'tfsec', 'Kubescape'],
+    k: '03',
+    accent: 'model',
+    title: 'I know how the models work',
+    body: 'Tokenisation, context windows, embeddings, retrieval, evaluation. Understanding the mechanics is what makes the judgement call possible: when an LLM is the right tool, when retrieval fixes it, and when you should not be using one at all.',
   },
   {
-    id: 'provision',
-    index: '04',
-    title: 'Provision',
-    verb: 'Nothing by hand',
-    summary:
-      'Versioned Terraform modules and locked remote state across more than one cloud, including the brownfield work of importing a live console-built estate without downtime. Plans are reviewed in pull requests and drift is caught on a schedule.',
-    tools: ['Terraform', 'Terragrunt', 'Ansible', 'Packer', 'OPA / Conftest', 'CloudFormation'],
-  },
-  {
-    id: 'deploy',
-    index: '05',
-    title: 'Deploy',
-    verb: 'Git is the only lever',
-    summary:
-      'GitOps controllers reconcile each environment toward what the repository says, with promotion as a reviewed change and canary rollouts that revert themselves on an SLO breach. Admission control rejects anything unsigned, privileged or unbounded before it ever schedules.',
-    tools: ['Argo CD', 'Helm', 'Kustomize', 'Argo Rollouts', 'Kyverno', 'Gatekeeper', 'Vault', 'ESO'],
-  },
-  {
-    id: 'runtime',
-    index: '06',
-    title: 'Run & Route',
-    verb: 'Zero trust, east and west',
-    summary:
-      'Cluster operations end to end, plus the traffic layer where most real incidents actually live. Service mesh carries mTLS and authorization policy between workloads, the Gateway API replaces annotation-driven Ingress, and network policy defaults to deny.',
-    tools: ['Kubernetes', 'Istio', 'Linkerd', 'Gateway API', 'NGINX / Envoy', 'Cilium', 'Falco', 'CoreDNS'],
-  },
-  {
-    id: 'observe',
-    index: '07',
-    title: 'Observe',
-    verb: 'Alerts that matter',
-    summary:
-      'OpenTelemetry as the one vendor-neutral collection layer, with traces, metrics and logs correlated behind a single query surface. Alerting is written against SLOs, and any page that never drove an action gets deleted, because noise is a defect.',
-    tools: ['OpenTelemetry', 'SigNoz', 'Prometheus', 'Grafana', 'Elasticsearch', 'Kibana', 'Alertmanager', 'Jaeger'],
+    k: '04',
+    accent: 'model',
+    title: 'I get models past the notebook',
+    body: 'Around nine in ten models never reach production, and the blockers are delivery problems: packaging, serving, versioning, drift and ownership. That is the same discipline I apply to applications, pointed at a different artifact.',
   },
 ]
 
 /* ------------------------------------------------------------------ */
-/* Capability domains                                                   */
+/* Practices                                                            */
 /* ------------------------------------------------------------------ */
 
-export type Domain = {
+export type Practice = {
   id: string
-  icon: 'shield' | 'cloud' | 'kube' | 'mesh' | 'code' | 'radar'
+  art: 'platform' | 'models' | 'intelligence'
+  accent: Accent
   title: string
-  blurb: string
+  body: string
+  tags: string[]
 }
 
-export const domains: Domain[] = [
+export const practices: Practice[] = [
   {
-    id: 'kubernetes',
-    icon: 'kube',
-    title: 'Kubernetes',
-    blurb:
-      'Administration, workload development and hardening, across managed and self-managed clusters. Upgrades, RBAC, admission baselines and autoscaling, including the operators written when an off-the-shelf chart is the wrong answer.',
+    id: 'platform',
+    art: 'platform',
+    accent: 'verify',
+    title: 'DevSecOps & Cloud Platform',
+    body: 'The path from commit to production, and every guardrail around it. Kubernetes administration and hardening, multi-cloud infrastructure as code, container supply-chain security, service mesh and traffic, and observability that pages a human only when one is genuinely needed.',
+    tags: ['Kubernetes', 'Terraform', 'Istio', 'Cosign', 'Argo CD', 'OpenTelemetry'],
   },
   {
-    id: 'security',
-    icon: 'shield',
-    title: 'Security Engineering',
-    blurb:
-      'Application, container, infrastructure and supply-chain security treated as one continuous problem. Enforced in the pipeline and at admission, rather than reported in a dashboard someone might read.',
+    id: 'mlops',
+    art: 'models',
+    accent: 'model',
+    title: 'MLOps & Model Delivery',
+    body: 'Getting models out of notebooks and into production, then keeping them honest once they are there. Reproducible training, a registry with real lineage, versioned serving on the same pipeline as everything else, drift and quality monitoring, and rollback that works.',
+    tags: ['MLflow', 'KServe', 'Kubeflow', 'Model registry', 'Drift monitoring', 'GPU scheduling'],
   },
   {
-    id: 'cloud',
-    icon: 'cloud',
-    title: 'Multi-Cloud Infrastructure',
-    blurb:
-      'Designing, migrating and maintaining estates on AWS, Azure and GCP without pretending they are interchangeable. Including the unglamorous work of bringing a console-built estate under code.',
-  },
-  {
-    id: 'mesh',
-    icon: 'mesh',
-    title: 'Networking & Service Mesh',
-    blurb:
-      'The traffic layer: ingress, gateways, mesh, and the policies that decide who may talk to whom. Plus the debugging everyone else avoids, down to DNS, MTU and TLS handshakes.',
-  },
-  {
-    id: 'automation',
-    icon: 'code',
-    title: 'Automation & Platform',
-    blurb:
-      'Internal tooling and pipelines built so the common path is the safe path. Go and Python where glue is needed, and self-service workflows that do not put a platform engineer in the loop.',
-  },
-  {
-    id: 'observability',
-    icon: 'radar',
-    title: 'Observability',
-    blurb:
-      'Open standards over vendor lock-in, correlation over dashboards, signal over volume. Instrumentation that survives changing the backend, and alerting tuned against real incident history.',
+    id: 'ai',
+    art: 'intelligence',
+    accent: 'signal',
+    title: 'AI & LLM Engineering',
+    body: 'Building LLM features that survive contact with real users. Retrieval that measurably improves answers, evaluation you can trust, guardrails on input and output, predictable cost and latency, and the judgement to leave a model out where deterministic code does the job better.',
+    tags: ['RAG', 'Evals', 'Guardrails', 'Vector search', 'Prompt versioning', 'Cost control'],
   },
 ]
 
@@ -300,12 +271,12 @@ export type CaseStudy = {
   title: string
   kicker: string
   context: string
+  accent: Accent
   problem: string
   approach: string[]
   outcome: string
   metrics: { value: string; label: string }[]
   stack: string[]
-  scale: 'Enterprise' | 'Startup' | 'Freelance'
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -315,7 +286,7 @@ export const caseStudies: CaseStudy[] = [
     title: 'Everything by hand, then everything by code',
     kicker: 'Manual estate to Terraform, without downtime',
     context: 'Freelance project',
-    scale: 'Freelance',
+    accent: 'verify',
     problem:
       'A production estate built up over years of console clicks. No one could say with confidence what existed, who changed it last, or how to rebuild it if a region went dark. Every change was a ticket, a screen-share and a held breath.',
     approach: [
@@ -335,12 +306,62 @@ export const caseStudies: CaseStudy[] = [
     stack: ['Terraform', 'Terragrunt', 'AWS', 'Azure', 'Checkov', 'Conftest', 'GitHub Actions'],
   },
   {
-    id: 'supply-chain',
+    id: 'model-to-production',
     index: '02',
+    title: 'The ninety percent that never ship',
+    kicker: 'Models out of notebooks and into production',
+    context: 'MLOps',
+    accent: 'model',
+    problem:
+      'A team with good models and nothing in production. Training lived in notebooks on individual laptops, the registry was a shared folder of pickle files, and nobody could say which version had produced last quarter’s numbers. Every deployment attempt stalled on the same question: who owns this once it is running.',
+    approach: [
+      'Moved training into reproducible pipelines with pinned data snapshots and tracked parameters, so a result could be regenerated rather than remembered.',
+      'Introduced a model registry with versioning, stage promotion and lineage running back to the training run and the dataset behind it.',
+      'Packaged models as containers behind a standard serving interface, so a model deployed through the same pipeline, scanning and signing as every other workload.',
+      'Monitored what actually fails in production: input drift, prediction distribution, latency and error rate, not just accuracy against a test set.',
+      'Defined rollback exactly as we define it for applications, so a bad model is a revert rather than an incident.',
+    ],
+    outcome:
+      'Models began reaching production on a schedule instead of by heroics, and stayed observable once they were there. The bottleneck had never been the modelling. It was that nothing downstream of the notebook existed.',
+    metrics: [
+      { value: 'Repeatable', label: 'Notebook to production as a pipeline' },
+      { value: 'Versioned', label: 'Lineage from prediction back to dataset' },
+      { value: 'Reversible', label: 'A bad model is a revert, not an incident' },
+    ],
+    stack: ['MLflow', 'Kubeflow Pipelines', 'KServe', 'Docker', 'Kubernetes', 'Prometheus', 'Python'],
+  },
+  {
+    id: 'llm-feature',
+    index: '03',
+    title: 'An LLM feature that survived real users',
+    kicker: 'Retrieval, evaluation, and knowing when not to use a model',
+    context: 'AI engineering',
+    accent: 'signal',
+    problem:
+      'A prototype that demoed beautifully and fell apart in front of real users. Answers drifted, cost was unpredictable, latency was whatever the provider felt like that day, and there was no way to tell whether a prompt change had made things better or worse.',
+    approach: [
+      'Built an evaluation set out of real failure cases first, so every later change could be measured instead of argued about.',
+      'Added retrieval over the actual source of truth, which removed most of the hallucinations that prompt engineering alone had never fixed.',
+      'Versioned prompts and model choices as deployable configuration, with the same review and rollback as any other change.',
+      'Put guardrails on input and output, then added caching and token budgets so cost and latency became predictable.',
+      'Scoped the feature honestly: the parts where a model added nothing went back to ordinary deterministic code.',
+    ],
+    outcome:
+      'The feature became measurable, affordable and boring in the way production things should be. The largest single improvement came from understanding how the model actually behaved, not from reaching for a bigger one.',
+    metrics: [
+      { value: 'Measured', label: 'Eval set built from real failures' },
+      { value: 'Predictable', label: 'Cost and latency inside a budget' },
+      { value: 'Scoped', label: 'Deterministic code where AI added nothing' },
+    ],
+    stack: ['Python', 'Vector search', 'RAG', 'LLM evals', 'Guardrails', 'OpenTelemetry', 'Kubernetes'],
+  },
+  {
+    id: 'supply-chain',
+    index: '04',
     title: 'A signature the cluster actually checks',
     kicker: 'Container supply-chain security, commit to admission',
     context: 'Enterprise engagement',
-    scale: 'Enterprise',
+    accent: 'verify',
     problem:
       'Images were scanned, and the reports went to a dashboard nobody had opened in months. Nothing stopped an unscanned, unsigned image from being deployed. Nobody could answer the provenance question: where did this running container actually come from.',
     approach: [
@@ -361,11 +382,11 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: 'k8s-hardening',
-    index: '03',
+    index: '05',
     title: 'Default-deny, and the migration to get there',
     kicker: 'Kubernetes hardening on a live cluster',
     context: 'Enterprise engagement',
-    scale: 'Enterprise',
+    accent: 'verify',
     problem:
       'A flat cluster network where every pod could reach every other pod and the internet. Broad RBAC handed out because narrowing it was harder than granting it. Workloads running as root because that was the default in the chart.',
     approach: [
@@ -387,11 +408,11 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: 'gateway-api',
-    index: '04',
+    index: '06',
     title: 'Deleting a thousand annotations',
     kicker: 'Ingress to Gateway API, plus mesh mTLS',
     context: 'Enterprise engagement',
-    scale: 'Enterprise',
+    accent: 'verify',
     problem:
       'Routing logic encoded in controller-specific Ingress annotations that only two people understood. Application teams needed a platform engineer for every hostname change, and traffic between services inside the cluster was plaintext.',
     approach: [
@@ -412,11 +433,11 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: 'observability',
-    index: '05',
+    index: '07',
     title: 'We deleted most of the alerts',
     kicker: 'OpenTelemetry and SigNoz, and a quieter pager',
     context: 'Enterprise engagement',
-    scale: 'Enterprise',
+    accent: 'verify',
     problem:
       'Three disconnected monitoring tools, none of which could follow a single request end to end. Alert fatigue severe enough that pages were being acknowledged and ignored, which is the failure mode right before a real one gets missed.',
     approach: [
@@ -438,11 +459,11 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: 'startup-platform',
-    index: '06',
+    index: '08',
     title: 'Zero to platform, team of one',
     kicker: 'Greenfield delivery at startup speed',
     context: 'Startup product team',
-    scale: 'Startup',
+    accent: 'signal',
     problem:
       'No pipeline, no infrastructure code, no monitoring, and a product that needed to ship. The entire platform function was one engineer, and every hour spent on tooling was an hour not spent on the product.',
     approach: [
@@ -484,6 +505,16 @@ export const stack: { group: string; items: string[] }[] = [
     group: 'Security',
     items: ['Trivy', 'Grype', 'Syft (SBOM)', 'Cosign / Sigstore', 'Kyverno', 'OPA / Gatekeeper', 'Falco', 'SonarQube', 'Semgrep', 'gitleaks', 'Checkov', 'tfsec', 'HashiCorp Vault', 'CIS benchmarks'],
   },
+  // verify: prune this group to the tools you have actually shipped with.
+  {
+    group: 'MLOps',
+    items: ['MLflow', 'Kubeflow Pipelines', 'KServe', 'BentoML', 'Model registry', 'Feature stores', 'Drift monitoring', 'Experiment tracking', 'GPU scheduling', 'ONNX', 'Triton Inference Server'],
+  },
+  // verify: same here.
+  {
+    group: 'AI & LLM',
+    items: ['RAG pipelines', 'Vector databases', 'Embeddings', 'LLM evaluation', 'Guardrails', 'Prompt versioning', 'Token & cost budgeting', 'Hugging Face', 'LangChain', 'Fine-tuning basics'],
+  },
   {
     group: 'Networking & Mesh',
     items: ['Gateway API', 'Ingress NGINX', 'Istio', 'Linkerd', 'Envoy', 'Cilium', 'NetworkPolicy', 'cert-manager', 'ExternalDNS', 'CoreDNS', 'Firewalls'],
@@ -511,14 +542,14 @@ export const contact = {
     [{ t: 'Let’s' }, { t: 'build' }, { t: 'something' }],
     [{ t: 'that', em: true }, { t: 'stays', em: true }, { t: 'up.', em: true }],
   ],
-  body: 'I work across the whole delivery path: pipelines, cloud infrastructure, Kubernetes, and the security controls that hold all three together. If you are building a platform that has to be both fast and defensible, I am always glad to talk about it.',
+  body: 'I work across the whole delivery path: pipelines, cloud infrastructure, Kubernetes, the security controls that hold it together, and increasingly the models and AI features running on top of it. If you are building something that has to be fast, defensible and actually in production, I am glad to talk about it.',
   cta: 'Start a conversation',
 }
 
 export const nav = [
-  { label: 'Approach', href: '#approach' },
-  { label: 'Pipeline', href: '#pipeline' },
-  { label: 'Expertise', href: '#expertise' },
+  { label: 'Story', href: '#story' },
+  { label: 'Edge', href: '#edge' },
+  { label: 'Practice', href: '#practice' },
   { label: 'Work', href: '#work' },
   { label: 'Contact', href: '#contact' },
 ]

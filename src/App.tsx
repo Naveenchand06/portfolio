@@ -7,9 +7,9 @@ import Cursor from './components/Cursor'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Marquee from './components/Marquee'
-import About from './components/About'
-import Pipeline from './components/Pipeline'
-import Domains from './components/Domains'
+import Story from './components/Story'
+import Edge from './components/Edge'
+import Practice from './components/Practice'
 import Work from './components/Work'
 import Stack from './components/Stack'
 import Contact from './components/Contact'
@@ -32,9 +32,9 @@ export default function App() {
         <main>
           <Hero ready={ready} />
           <Marquee />
-          <About />
-          <Pipeline />
-          <Domains />
+          <Story />
+          <Edge />
+          <Practice />
           <Work />
           <Stack />
         </main>

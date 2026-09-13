@@ -5,6 +5,9 @@ import path from 'node:path'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  // Defaults to 5173; an assigned PORT wins so the preview tooling can
+  // move off a port another project is already holding.
+  server: { port: Number(process.env.PORT) || 5173 },
   resolve: {
     alias: { '@': path.resolve(import.meta.dirname, './src') },
   },

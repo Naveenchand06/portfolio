@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { caseStudies, sections } from '@/data/content'
 import type { CaseStudy } from '@/data/content'
+import { ACCENT } from '@/lib/accent'
 import CaseVisual from './ui/CaseVisual'
 import { MaskedWords, Reveal, SectionLabel } from './ui/Reveal'
 
@@ -86,11 +87,7 @@ function CaseRow({
 
         <div className="flex items-center gap-3 md:col-span-3 md:justify-end md:pt-2">
           <span
-            className={`rounded-full border px-3 py-1 font-mono text-[0.65rem] uppercase tracking-widest ${
-              study.scale === 'Enterprise'
-                ? 'border-bone/15 text-muted'
-                : 'border-verify/30 text-verify'
-            }`}
+            className={`rounded-full border px-3 py-1 font-mono text-[0.65rem] uppercase tracking-widest ${ACCENT[study.accent].border} ${ACCENT[study.accent].text}`}
           >
             {study.context}
           </span>
