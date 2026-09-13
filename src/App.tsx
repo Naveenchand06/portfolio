@@ -9,7 +9,9 @@ import Hero from './components/Hero'
 import Marquee from './components/Marquee'
 import Story from './components/Story'
 import Practice from './components/Practice'
-import Work from './components/Work'
+// The "Problems worth solving" case studies are parked: they made the page very
+// long. Nothing was deleted. To bring them back, re-add the Work import and
+// <Work /> below, plus the Work entry in `nav` in src/data/content.ts.
 import Contact from './components/Contact'
 
 export default function App() {
@@ -32,7 +34,6 @@ export default function App() {
           <Marquee />
           <Story />
           <Practice />
-          <Work />
         </main>
 
         <Contact />

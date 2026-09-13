@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import type { Accent } from '@/data/content'
 
-type Kind = 'platform' | 'models' | 'intelligence'
+type Kind = 'platform' | 'models' | 'intelligence' | 'insight'
 
 /** One isometric box: three faces at 2:1, shaded to read as a solid. */
 function IsoBox({
@@ -64,6 +64,7 @@ export default function IsoArt({
       {kind === 'platform' && <Platform c={c} />}
       {kind === 'models' && <Models c={c} />}
       {kind === 'intelligence' && <Intelligence c={c} />}
+      {kind === 'insight' && <Insight c={c} />}
     </svg>
   )
 }
@@ -264,6 +265,81 @@ function Intelligence({ c }: { c: string }) {
             ease: 'easeInOut',
           }}
         />
+      ))}
+    </>
+  )
+}
+
+/* A growing bar chart on a plinth, with the trend drawn above it. */
+function Insight({ c }: { c: string }) {
+  const bars = [
+    { cx: 74, cy: 120, h: 32 },
+    { cx: 104, cy: 108, h: 46 },
+    { cx: 134, cy: 96, h: 60 },
+    { cx: 164, cy: 82, h: 76 },
+  ]
+
+  return (
+    <>
+      <IsoBox cx={120} cy={150} w={64} h={11} color={c} />
+
+      {bars.map((b, i) => (
+        <motion.g
+          key={i}
+          animate={{ y: [0, -3, 0], opacity: [0.72, 1, 0.72] }}
+          transition={float(3.2, i * 0.28)}
+        >
+          <IsoBox cx={b.cx} cy={b.cy} w={13} h={b.h} color={c} />
+        </motion.g>
+      ))}
+
+      {/* trend line over the tops */}
+      <motion.path
+        d="M74 112 L104 100 L134 88 L164 74"
+        fill="none"
+        stroke={c}
+        strokeWidth={1.4}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeDasharray="140"
+        animate={{ strokeDashoffset: [140, 0, 0, 140] }}
+        transition={{ duration: 5, times: [0, 0.35, 0.8, 1], repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.path
+        d="M156 68 L166 72 L162 82"
+        fill="none"
+        stroke={c}
+        strokeWidth={1.4}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        animate={{ opacity: [0, 0, 1, 1, 0] }}
+        transition={{ duration: 5, times: [0, 0.35, 0.42, 0.8, 1], repeat: Infinity }}
+      />
+
+      {/* the reading that matters */}
+      <motion.g
+        animate={{ opacity: [0, 1, 1, 0], y: [4, 0, 0, 4] }}
+        transition={{ duration: 5, times: [0, 0.45, 0.8, 1], repeat: Infinity }}
+      >
+        <circle cx={164} cy={74} r={4} fill={c} />
+        <text x={186} y={56} textAnchor="middle" fontSize="8" className="font-mono" fill={c}>
+          +34%
+        </text>
+      </motion.g>
+
+      {['q1', 'q2', 'q3', 'q4'].map((q, i) => (
+        <text
+          key={q}
+          x={bars[i].cx}
+          y={186}
+          textAnchor="middle"
+          fontSize="7.5"
+          className="font-mono"
+          fill={c}
+          opacity={0.6}
+        >
+          {q}
+        </text>
       ))}
     </>
   )

@@ -44,15 +44,43 @@ export default function Contact() {
           </a>
         </Reveal>
 
+        <Reveal delay={0.1}>
+          <div className="mt-12 flex flex-col gap-7 rounded-xl border border-verify/25 bg-surface p-8 md:mt-16 md:flex-row md:items-center md:justify-between md:p-10">
+            <div className="max-w-xl">
+              <div className="flex items-center gap-2.5">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-verify opacity-70" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-verify" />
+                </span>
+                <span className="label text-verify">{contact.hire.label}</span>
+              </div>
+              <h3 className="mt-4 text-2xl font-semibold tracking-tight md:text-[2rem]">
+                {contact.hire.title}
+              </h3>
+              <p className="mt-3 text-pretty text-[0.93rem] leading-relaxed text-muted">
+                {contact.hire.body}
+              </p>
+            </div>
+
+            <a
+              href={`mailto:${profile.email}?subject=${encodeURIComponent(contact.hire.subject)}`}
+              className="group inline-flex shrink-0 items-center gap-3 rounded-full bg-verify px-7 py-4 text-[0.9rem] font-semibold text-ink transition-transform duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-0.5"
+            >
+              {contact.hire.cta}
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          </div>
+        </Reveal>
+
         <div className="mt-12 grid gap-10 pb-12 md:grid-cols-12 md:pb-16">
-          <Reveal className="md:col-span-6">
+          <Reveal className="md:col-span-7">
             <span className="label">In short</span>
             <p className="mt-4 max-w-sm text-pretty text-[0.92rem] leading-relaxed text-muted">
               {profile.tagline}
             </p>
           </Reveal>
 
-          <Reveal className="md:col-span-3" delay={0.08}>
+          <Reveal className="md:col-span-5" delay={0.08}>
             <span className="label">Elsewhere</span>
             <ul className="mt-4 space-y-2.5">
               {profile.socials.map((s) => (
@@ -71,12 +99,6 @@ export default function Contact() {
             </ul>
           </Reveal>
 
-          <Reveal className="md:col-span-3" delay={0.16}>
-            <span className="label">Focus</span>
-            <p className="mt-4 text-pretty text-[0.92rem] leading-relaxed text-muted">
-              {profile.focus}
-            </p>
-          </Reveal>
         </div>
 
         <div className="flex items-center justify-between border-t border-bone/10 py-8">

@@ -18,7 +18,7 @@ export default function Practice() {
         </Reveal>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2">
         {practices.map((p, i) => (
           <motion.article
             key={p.id}

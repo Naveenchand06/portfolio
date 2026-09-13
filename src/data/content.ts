@@ -11,7 +11,7 @@
  * own records before you publish.
  */
 
-export type Accent = 'signal' | 'verify' | 'model'
+export type Accent = 'signal' | 'verify' | 'model' | 'insight'
 
 export const profile = {
   name: 'Naveenchand R B',
@@ -45,7 +45,7 @@ export const hero = {
     [{ t: 'AND' }, { t: 'MODELS' }],
     [{ t: 'IN', em: true }, { t: 'PRODUCTION', em: true }],
   ],
-  sub: 'I started as a software developer and got curious about what happened to the code after the merge. That curiosity turned into a career in DevSecOps and cloud platforms, and now into getting machine learning models and LLM features to production, where most of them never arrive.',
+  sub: 'I started as a software developer and got curious about what happened to the code after the merge. That curiosity became a career in DevSecOps and cloud platforms, then in getting models and LLM features live. Shipping is where the work starts: what the system tells you afterwards, about revenue, about latency, about the next thing to harden, is the part that compounds.',
   scrollCue: 'Scroll to read the story',
 }
 
@@ -104,11 +104,11 @@ export const sections: Record<
     index: '02',
     label: 'What I build',
     headline: [
-      [{ t: 'Three' }, { t: 'practices,' }],
-      [{ t: 'one' }, { t: 'delivery' }, { t: 'path.', em: true }],
+      [{ t: 'Four' }, { t: 'practices,' }],
+      [{ t: 'one' }, { t: 'system.', em: true }],
     ],
     intro:
-      'Applications, models and AI features all fail for the same reasons once they leave a laptop. The artifact changes; the discipline does not.',
+      'Applications, models and AI features all fail for the same reasons once they leave a laptop. The artifact changes; the discipline does not. And none of them are finished the day they go live.',
   },
   work: {
     index: '03',
@@ -132,6 +132,7 @@ export const story = {
     'So I went and learned that side properly. Servers, then containers, then Kubernetes, then the cloud underneath all of it, and eventually the security that has to wrap the whole path. Today I am a DevSecOps and Cloud Platform Engineer at Deloitte, designing and running secure delivery platforms for enterprise clients.',
     'I never stopped writing code, and that turns out to be the useful part. When something breaks I can read the application as well as the cluster, so I am never stuck at "the infrastructure looks fine". I find the root cause faster because I can follow it across that boundary instead of handing it over at it.',
     'Security is where my curiosity keeps going. Not the compliance checkboxes, the actual mechanics: how an image earns trust, how a credential leaks, what default-deny genuinely costs you before it saves you.',
+    'Getting something live is where the work starts, not where it ends. Once real traffic is flowing, the same platform will tell you what the business actually needs to know: which regions are growing, which products sell, where people drop off. It will also tell you where the latency is, which hop to fix, and what to harden next. Security especially is never finished. It is a moving target, and it has to be revisited as the system and the threats both keep changing.',
     'And now the models. Everyone can train something; almost nobody can ship it. Roughly nine in ten models never reach production, and the reasons are rarely about the model. They are packaging, serving, versioning, monitoring and the fact that nobody owns it once the notebook closes. That is a delivery problem, which is precisely the problem I already solve.',
     'The same holds for AI and LLMs. Using them well means understanding how they actually work rather than just calling an API. Knowing the mechanics is what tells you when a model is the right tool, when a retrieval layer fixes it, and when the honest answer is not to use one at all.',
   ],
@@ -176,7 +177,7 @@ export const story = {
 
 export type Practice = {
   id: string
-  art: 'platform' | 'models' | 'intelligence'
+  art: 'platform' | 'models' | 'intelligence' | 'insight'
   accent: Accent
   title: string
   body: string
@@ -207,6 +208,14 @@ export const practices: Practice[] = [
     title: 'AI & LLM Engineering',
     body: 'Building LLM features that survive contact with real users. Retrieval that measurably improves answers, evaluation you can trust, guardrails on input and output, predictable cost and latency, and the judgement to leave a model out where deterministic code does the job better.',
     tags: ['RAG', 'Evals', 'Guardrails', 'Vector search', 'Prompt versioning', 'Cost control'],
+  },
+  {
+    id: 'insight',
+    art: 'insight',
+    accent: 'insight',
+    title: 'Insight & Continuous Improvement',
+    body: 'What the system tells you once it is carrying real traffic. On the business side that means the numbers people actually decide on: which regions are growing, which products move, where the funnel leaks. On the engineering side it means tracing a slow request to the hop that caused it, cutting latency, and treating hardening as a standing habit rather than a project, because the threat model moves whether or not you do.',
+    tags: ['Product analytics', 'Distributed tracing', 'Latency profiling', 'SLOs', 'Capacity & cost', 'Continuous hardening'],
   },
 ]
 
@@ -438,13 +447,19 @@ export const contact = {
     [{ t: 'Let’s' }, { t: 'build' }, { t: 'something' }],
     [{ t: 'that', em: true }, { t: 'stays', em: true }, { t: 'up.', em: true }],
   ],
-  body: 'I work across the whole delivery path: pipelines, cloud infrastructure, Kubernetes, the security controls that hold it together, and increasingly the models and AI features running on top of it. If you are building something that has to be fast, defensible and actually in production, I am glad to talk about it.',
+  body: 'I work across the whole path: pipelines, cloud infrastructure, Kubernetes, the security controls that hold it together, the models and AI features running on top, and everything the system tells you once it is live. If you are building something that has to be fast, defensible and genuinely in production, I am glad to talk about it.',
   cta: 'Start a conversation',
+  hire: {
+    label: 'Hiring?',
+    title: 'Want to hire me?',
+    body: 'If you need someone who can build the platform, ship the models, and stay accountable for both once they are carrying real traffic, that is the job I want.',
+    cta: 'Hire me',
+    subject: 'Hiring enquiry',
+  },
 }
 
 export const nav = [
   { label: 'Story', href: '#story' },
   { label: 'Practice', href: '#practice' },
-  { label: 'Work', href: '#work' },
   { label: 'Contact', href: '#contact' },
 ]

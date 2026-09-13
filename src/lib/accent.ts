@@ -29,4 +29,11 @@ export const ACCENT: Record<
     ring: 'group-hover:border-model/60',
     dot: 'bg-model shadow-[0_0_12px_var(--color-model)]',
   },
+  insight: {
+    text: 'text-insight',
+    bg: 'bg-insight',
+    border: 'border-insight/45',
+    ring: 'group-hover:border-insight/60',
+    dot: 'bg-insight shadow-[0_0_12px_var(--color-insight)]',
+  },
 }
