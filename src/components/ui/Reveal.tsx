@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 import type { ReactNode } from 'react'
 
 const EASE = [0.16, 1, 0.3, 1] as const
@@ -58,9 +59,19 @@ export function MaskedWords({
   delay?: number
   stagger?: number
 }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  /**
+   * One observer for the whole headline rather than one per word. Per-word
+   * observers used a uniform negative viewport margin, which insets left and
+   * right as well as top and bottom: a word as narrow as "I" could sit
+   * entirely inside that inset, never intersect, and stay parked behind its
+   * mask for good. The margin here is vertical-only for the same reason.
+   */
+  const inView = useInView(ref, { once: true, margin: '-8% 0px' })
+
   let i = -1
   return (
-    <span className={className}>
+    <span ref={ref} className={className}>
       {lines.map((line, li) => (
         <span key={li} className="block overflow-hidden pb-[0.06em]">
           <span className="flex flex-wrap gap-x-[0.24em]">
@@ -77,8 +88,7 @@ export function MaskedWords({
                       : 'inline-block text-bone'
                   }
                   initial={{ y: '105%' }}
-                  whileInView={{ y: '0%' }}
-                  viewport={{ once: true, margin: '-8%' }}
+                  animate={{ y: inView ? '0%' : '105%' }}
                   transition={{
                     duration: 1,
                     delay: delay + i * stagger,
